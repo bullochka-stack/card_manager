@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}" type="text/css">
+    <title>Детали</title>
+</head>
+<body>
+	<a href="{% url 'home' %}">На главную</a>
+    <h1>Информация о карте</h1>
+	<table class="iksweb">
+		<tbody>
+		<tr>
+			<td>Серия</td>
+			<td>{{card.series}}</td>
+		</tr>
+		<tr>
+			<td>Номер</td>
+			<td>{{card.number}}</td>
+		</tr>
+		<tr>
+			<td>Дата выпуска</td>
+			<td>{{card.created_at}}</td>
+		</tr>
+		<tr>
+			<td>Дата окончания действия</td>
+			<td>{{card.date_end}}</td>
+		</tr>
+		<tr>
+			<td>Дата использования</td>
+			<td>{{card.use_date}}</td>
+		</tr>
+		<tr>
+			<td>Сумма</td>
+			<td>{{card.summa}}</td>
+		</tr>
+		<tr>
+			<td>Статус</td>
+			<td>{{card.status}}</td>
+		</tr>
+		</tbody>
+	</table>
+	<p><a href="{% url 'activate' card.pk %}">Активировать</a></p>
+	<p><a href="{% url 'deactivate' card.pk %}">Деактивировать</a></p>
+	<p><a href="{% url 'delete' card.pk %}">УДАЛИТЬ</a></p>
+	<h1>История</h1>
+	{% for item in history %}
+	<p>{{item.created_at}}  {{item.purchase}}  {{item.summa}}</p>
+	{% empty %}
+	<h3>Нет истории</h3>
+	{% endfor %}
+</body>
+</html>

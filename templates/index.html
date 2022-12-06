@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+
+    <!-- Font Awesome -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"
+            integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=" crossorigin="anonymous"></script>
+
+    <!-- Tempus Dominus Bootstrap 4 -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css"
+          integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs=" crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js"
+            integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
+    <title>Список карт</title>
+</head>
+<body>
+<form action="{% url 'home' %}" method="post">
+	{% csrf_token %}
+    <h1>Поиск</h1>
+    Серия: {{form.series}}
+    Номер: {{form.number}}
+    <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+        Дата создания: {{ form.created_at }}
+        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+        </div>
+    </div>
+    <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+        Дата окончания действия: {{ form.date_end }}
+        <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+        </div>
+    </div>
+    <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
+        Дата использования: {{ form.use_date }}
+        <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+        </div>
+    </div>
+    Сумма: {{ form.summa }}
+    Статус: {{ form.status }}
+    <button type="submit">Поиск</button>
+    <p></p>
+    <p><a href="{% url 'generator' %}">Генератор карт</a></p>
+</form>
+<h1>Список карт</h1>
+<table class="table1">
+    <tbody>
+    <tr>
+        <td>Серия</td>
+        <td>Номер</td>
+        <td>Дата выпуска</td>
+        <td>Дата окончания действия</td>
+        <td>Дата использования</td>
+        <td>Сумма</td>
+        <td>Статус</td>
+    </tr>
+    {% for card in cards %}
+    <tr>
+        <td>{{card.series}}</td>
+        <td><a href="{% url 'detail' card.pk %}">{{card.number}}</a></td>
+        <td>{{card.created_at}}</td>
+        <td>{{card.date_end}}</td>
+        <td>{{card.use_date}}</td>
+        <td>{{card.summa}}</td>
+        <td>{{card.status}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<script>
+    $(function () {
+        $("#datetimepicker1").datetimepicker({
+            format: 'YYYY-MM-DD HH:mm',
+        });
+        $("#datetimepicker2").datetimepicker({
+            format: 'YYYY-MM-DD HH:mm',
+        });
+        $("#datetimepicker3").datetimepicker({
+            format: 'YYYY-MM-DD HH:mm',
+        });
+    });
+</script>
+</body>
+</html>
