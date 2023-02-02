@@ -55,3 +55,10 @@ python manage.py migrate
 ```
 python manage.py runserver
 ```
+----
+### Скриншоты
+![image](https://user-images.githubusercontent.com/63292154/216410830-ed634d3b-c2e8-43a5-a1ca-8959214ce100.png)
+![image](https://user-images.githubusercontent.com/63292154/216411199-786c2c9b-c3b7-4041-ac73-967aa222f171.png)
+![image](https://user-images.githubusercontent.com/63292154/216411446-cf486b60-b85a-45a4-89cb-a2697c6342cf.png)
+![image](https://user-images.githubusercontent.com/63292154/216411702-5887f188-3fe2-46d2-8d74-13aac48ff6a8.png)
+
